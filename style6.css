@@ -1,0 +1,111 @@
+
+    body {
+        background-image: url(https://i.pinimg.com/originals/ec/b6/41/ecb6416c16b66e9e5409def9271224a2.gif);
+        font-family: 'Bruno Ace SC', cursive;
+        font-size: 50px;
+        color: #fff;
+    }
+
+    form {
+        display: flex;
+        top: 130px;
+        width: 500px;
+        position: relative;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff2b;
+        text-align: center;
+        border: solid;
+        border-color: #ff0074;
+        flex-direction: column;
+        align-items: center;
+    }
+
+section.bouton {
+        top: 130px;
+        width: 500px;
+        position: relative;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff2b;
+        text-align: center;
+        border: solid;
+        border-color: #ff0074;
+}
+
+    label {
+        display: block;
+    }
+
+    input[type="text"],
+    select {
+        text-align: center;
+        width: 50%;
+        padding: 5px;
+        border: 1px solid #ff0074;
+        font-family: 'Bruno Ace SC', cursive;
+    }
+
+    input[type="submit"] {
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+        background-color: #ff0074;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-family: 'Bruno Ace SC', cursive;
+    }
+
+    input[type="password"] {
+        text-align: center;
+        width: 50%;
+        padding: 5px;
+        border: 1px solid #ff0074;
+        font-family: 'Bruno Ace SC', cursive;
+    }
+
+    h1 {
+        font-size: 1.4em;
+    }
+    button {
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+        background-color: #ff0074;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-family: 'Bruno Ace SC', cursive;
+        text-decoration: none;
+    }
+    a{
+        text-decoration: none;
+        color: #fff;
+    }
+    body.bodyprof {
+        background-image: url(https://cutewallpaper.org/28/cthulu-pixel-art-wallpaper-gif/tabletop-fd6d9-gaming-cecd1-resources-dfe0a-%E2%80%94-21657-chillxpanic-5efc0-obsessed-124fb-with-c9ce4-this-92589-pixel---art---by.gif);
+        font-family: 'Bruno Ace SC', cursive;
+        font-size: 50px;
+        color: #fff;
+    }
+    body.bodyadmin {
+        background-image: url(https://i.redd.it/h8hb1u6nbhh71.gif);
+        font-family: 'Bruno Ace SC', cursive;
+        font-size: 50px;
+        color: #fff;
+    }
+    tr {
+        display: flex;
+        top: 130px;
+        width: 500px;
+        position: relative;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff2b;
+        text-align: center;
+        border: solid;
+        border-color: #ff0074;
+        flex-direction: column;
+        align-items: center;
+    }
