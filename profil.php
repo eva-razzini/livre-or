@@ -2,9 +2,20 @@
 // Démarrer la session
 session_start();
 
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION["login"])) {
+    // Redirection vers la page de connexion
+    header("Location: connexion.php");
+    exit;
+}
+
+// Vérifier si un message de succès de modification de profil est présent dans la variable de session
+$message = isset($_SESSION["profil_message"]) ? $_SESSION["profil_message"] : "";
+unset($_SESSION["profil_message"]); // Supprimer le message de la variable de session
+
 // Récupérer les informations de l'utilisateur connecté depuis la base de données
 $host = "localhost";
-$dbname = "moduleconnexion";
+$dbname = "livreor";
 $username = "pma";
 $passwordDB = "plomkiplomki";
 
@@ -13,7 +24,7 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Récupérer les informations de l'utilisateur connecté
-    $query = "SELECT login, prenom, nom FROM utilisateurs WHERE login = ?";
+    $query = "SELECT login FROM utilisateurs WHERE login = ?";
     $stmt = $conn->prepare($query);
     $stmt->execute([$_SESSION["login"]]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -21,18 +32,19 @@ try {
     // Vérifier si le formulaire de mise à jour a été soumis
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Récupérer les nouvelles données du formulaire
-        $newLogin = $_POST["login"];
-        $newPrenom = $_POST["prenom"];
-        $newNom = $_POST["nom"];
-        $newPassword = $_POST["password"];
+        $newLogin = $_POST["new_login"];
+        $newPassword = $_POST["new_password"];
 
         // Mettre à jour les informations de l'utilisateur dans la base de données
-        $updateQuery = "UPDATE utilisateurs SET login = ?, prenom = ?, nom = ?, password = ? WHERE login = ?";
+        $updateQuery = "UPDATE utilisateurs SET login = ?, password = ? WHERE login = ?";
         $updateStmt = $conn->prepare($updateQuery);
-        $updateStmt->execute([$newLogin, $newPrenom, $newNom, $newPassword, $_SESSION["login"]]);
+        $updateStmt->execute([$newLogin, $newPassword, $_SESSION["login"]]);
 
         // Mettre à jour le login de l'utilisateur dans la variable de session
         $_SESSION["login"] = $newLogin;
+
+        // Stocker le message de succès de modification de profil dans la variable de session
+        $_SESSION["profil_message"] = "Profil modifié avec succès";
 
         // Redirection vers la page de profil mise à jour
         header("Location: profil.php");
@@ -56,36 +68,31 @@ if (isset($_GET["logout"])) {
 }
 ?>
 
+<!-- Formulaire de modification de profil -->
 <!DOCTYPE html>
 <html>
 <head>
     <title>Profil</title>
-    <link id="style" rel="stylesheet" type="text/css" href="style6.css">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&display=swap');
-  </style>
 </head>
-<body class="bodyprof">
-    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
-        <h1>Profil</h1>
-        <label for="login" style="font-size: 0.5em">Login:</label>
-        <input type="text" id="login" name="login" value="<?php echo $row["login"]; ?>" required><br>
+<body>
+    <h2>Modifier le profil</h2>
+    <?php if (!empty($message)) : ?>
+        <div class="message"><?php echo $message; ?></div>
+    <?php endif; ?>
+    <form method="POST" action="profil.php">
+        <label for="new_login">Nouveau login:</label>
+        <input type="text" name="new_login" required value="<?php echo $_SESSION['login']; ?>"><br>
 
-        <label for="prenom" style="font-size: 0.5em">Prénom:</label>
-        <input type="text" id="prenom" name="prenom" value="<?php echo $row["prenom"]; ?>" required><br>
+        <label for="new_password">Nouveau mot de passe:</label>
+        <input type="password" name="new_password" required><br>
 
-        <label for="nom" style="font-size: 0.5em">Nom:</label>
-        <input type="text" id="nom" name="nom" value="<?php echo $row["nom"]; ?>" required><br>
-
-        <label for="password" style="font-size: 0.5em">Nouveau mot de passe:</label>
-        <input type="password" id="password" name="password" required><br>
-
-        <input type="submit" value="Enregistrer les modifications">
+        <input type="submit" value="Modifier">
     </form>
     <br>
-    <form method="GET" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
-        <input type="hidden" name="logout" value="true">
-        <input type="submit" value="Se déconnecter">
-    </form>
+    <a href="livre-or.php">Voir le livre d'or</a>
+    <br>
+    <a href="commentaire.php">Ajouter un commentaire</a>
+    <br>
+    <a href="profil.php?logout">Se déconnecter</a>
 </body>
 </html>
