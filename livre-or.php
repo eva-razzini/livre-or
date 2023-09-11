@@ -37,3 +37,23 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
 
+<html><head>
+  <meta charset="UTF-8">
+  <title>Norie</title>
+  <link id="style" rel="stylesheet" type="text/css" href="style6.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant&display=swap');
+  </style>
+</head>
+
+<body>
+  <section>
+    <nav>
+          <header class="top">
+              <img src="media/logo.png" id="logo">
+              <p>Norie<p>
+          </header>
+      </nav> 
+  </section>
+</body>
+</html>
